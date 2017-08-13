@@ -7,14 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TennisGameTest {
-	private Player italia;
-	private Player espania;
+	private TennisPlayer italia;
+	private TennisPlayer espania;
 	private TennisGame game;
 	
 	@Before
 	public void setUp(){
-		italia = new Player();
-		espania = new Player();
+		italia = new TennisPlayer();
+		espania = new TennisPlayer();
 		game = new TennisGame(italia, espania);
 	}
 	
