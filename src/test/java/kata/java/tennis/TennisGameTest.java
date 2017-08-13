@@ -62,5 +62,26 @@ public class TennisGameTest {
 		assertThat(game.deuce(), is(true));
 	}
 	
+	@Test
+	public void italiaPlayerScoreAdvantageFromDeuce() throws Exception {
+		game = new TennisGame(italia, espania);
+		italia.scoreToFourty();
+		espania.scoreToFourty();
+		game.scoreFirstPlayer();
+		
+		assertThat(game.whoIsAdvantage(), is(italia));
+		assertThat(espania.isFourty(), is(true));
+		
+	}
 	
+	@Test
+	public void backToDeuce() throws Exception {
+		game = new TennisGame(italia, espania);
+		italia.scoreToFourty();
+		espania.scoreToFourty();
+		game.scoreFirstPlayer();
+		game.scoreSecondPlayer();
+		assertThat(game.deuce(), is(true));
+		
+	}
 }
