@@ -9,13 +9,13 @@ import org.junit.Test;
 public class TennisGameTest {
 	private Player italia;
 	private Player espania;
-	private Game game;
+	private TennisGame game;
 	
 	@Before
 	public void setUp(){
 		italia = new Player();
 		espania = new Player();
-		game = new Game(italia, espania);
+		game = new TennisGame(italia, espania);
 	}
 	
 
@@ -46,6 +46,20 @@ public class TennisGameTest {
 		espania.score();
 		
 		assertThat(game.winner(), is(espania));
+	}
+	
+	@Test
+	public void gameDeuce() throws Exception {
+		italia.score();
+		italia.score();
+		italia.score();
+		
+		espania.score();
+		espania.score();
+		espania.score();
+		
+		
+		assertThat(game.deuce(), is(true));
 	}
 	
 	
