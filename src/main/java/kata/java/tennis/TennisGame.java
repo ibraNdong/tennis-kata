@@ -43,6 +43,61 @@ public class TennisGame {
 		int newLooserScore = newLooserScore(actualWinnerScore, actualLooserScore);
 		return new Score(newLooserScore, newWinnerScore);
 	}
-  
+	
+	private int newLooserScore(int scoringPlayerScore, int otherPlayerScore) {
+		if(scoringPlayerScore == 40) {
+			if (otherPlayerScore == ADVANTAGE) { 
+				otherPlayerScore = 40;
+			}
+		} 
+		return otherPlayerScore;
+	}
+
+	private int newWinnerScore(int scoringPlayerScore, int otherPlayerScore) {
+		int newScore = 0;
+		if(scoringPlayerScore == 0) {
+			newScore = 15;
+		} else
+		if(scoringPlayerScore == 15) {
+			newScore = 30;
+		} else
+		if(scoringPlayerScore == 30) {
+			newScore = 40;
+		} else
+		if(scoringPlayerScore == 40) {
+			if (otherPlayerScore == ADVANTAGE) { 
+				newScore = 40;
+			} else {
+				newScore = ADVANTAGE;
+			}	
+		} else
+		if(scoringPlayerScore == ADVANTAGE) {
+			newScore = DOUBLE_ADVANTAGE;
+		}
+		return newScore;
+	}
+	
+	public String score() {
+		return printScore(gameScoringPoints.firstPlayer)+"-"+printScore(gameScoringPoints.secondPlayer);
+	}
+
+	private String printScore(int actualScore) {
+		if(actualScore == ADVANTAGE) {
+			return "AD";
+		}
+		if(actualScore == DOUBLE_ADVANTAGE) {
+			return "ADAD";
+		}
+		return actualScore+"";
+	}
+	
+  	public String winner() {
+		if(gameScoringPoints.firstPlayer > gameScoringPoints.secondPlayer) {
+			return playerA;
+		}
+		return playerB;
+	}
+
+}
   
   
