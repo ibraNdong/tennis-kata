@@ -25,8 +25,7 @@ public class TennisGameTest {
         
 	// The game starts with a score of 0 point for each player
 	@Test
-	public void 
-	startingScoreIsZeroZero() {
+	public void startingScoreIsZeroZero() {
 		assertThat(game.score(), is("0-0"));
 	}
 	
@@ -55,3 +54,62 @@ public class TennisGameTest {
 		game.secondPlayerScore();
 		assertThat(game.score(), is("0-40"));
 	}
+	
+	// If the 2 players reach the score 40, the DEUCE rule is activated
+	// If the score is DEUCE , the player who  win the point take the ADVANTAGE
+	@Test
+	public void theScorerShouldGoToAdvantageIfBothAt_40_() throws Exception {
+		gameStartsFromDeuce();
+		
+		game.firstPlayerScore();
+		assertThat(game.score(), is("AD-40"));
+		
+		gameStartsFromDeuce();
+		game.secondPlayerScore();
+		assertThat(game.score(), is("40-AD"));
+		
+	}
+	
+	// If the player who has the ADVANTAGE win the  point, he win the game
+	@Test
+	public void playerWinsWhenDoubleAdvantage() throws Exception {
+		gameStartsFromDeuce();
+		game.firstPlayerScore();
+		game.firstPlayerScore();
+		
+		assertThat(game.score(), is("ADAD-40"));
+		assertThat(game.winner(), is(playerA));
+		
+		gameStartsFromDeuce();
+		game.secondPlayerScore();
+		game.secondPlayerScore();
+		
+		assertThat(game.score(), is("40-ADAD"));
+		assertThat(game.winner(), is(playerB));
+	}
+	
+	// If the player who has the ADVANTAGE loose the point, the score is DEUCE
+	@Test
+	public void shouldGoBackToDeuce() throws Exception {
+		gameStartsFromDeuce();
+		game.firstPlayerScore();
+		assertThat(game.score(), is("AD-40"));
+		
+		game.secondPlayerScore();
+		assertThat(game.score(), is("40-40"));
+	}
+	
+	// the 2 players reach the score 40, the DEUCE rule is activated
+	private void gameStartsFromDeuce() {
+		game = new TennisGame(playerA, playerB);
+		game.firstPlayerScore();
+		game.firstPlayerScore();
+		game.firstPlayerScore();
+		
+		game.secondPlayerScore();
+		game.secondPlayerScore();
+		game.secondPlayerScore();
+		
+		assertThat(game.score(), is("40-40"));
+	}
+}
