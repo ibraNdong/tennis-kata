@@ -7,81 +7,51 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TennisGameTest {
-	private TennisPlayer italia;
-	private TennisPlayer espania;
+
+	private static final String playerA = "Nadal";
+	private static final String playerB = "Tsonga";
 	private TennisGame game;
 	
 	@Before
-	public void setUp(){
-		italia = new TennisPlayer();
-		espania = new TennisPlayer();
-		game = new TennisGame(italia, espania);
+	public void before() {
+		game = new TennisGame("first", "second");
 	}
 	
-
-
+	// Tennis match between 2 different players (Nadal and Tsonga)
+	@Test(expected=IllegalArgumentException.class)
+	public void playersShouldBeDifferent() throws Exception {
+		game = new TennisGame((String)null, null);
+	}
+        
+	// The game starts with a score of 0 point for each player
 	@Test
-	public void italiaWinsTheGame_40_15() {
-		italia.score();
-		italia.score();
-		italia.score();
-		
-		espania.score();
-		
-		
-		italia.score();
-		
-		assertThat(game.winner(), is(italia));
+	public void 
+	startingScoreIsZeroZero() {
+		assertThat(game.score(), is("0-0"));
 	}
 	
+	// PlayerA Nadal win the game
 	@Test
-	public void espaniaWins_15_40() throws Exception {
-		italia.score();
+	public void playerAScoreShouldFollow_15_30_40_sequence() throws Exception {
+		game.firstPlayerScore();
+		assertThat(game.score(), is("15-0"));
 		
-		espania.score();
-		espania.score();
-		espania.score();
+		game.firstPlayerScore();
+		assertThat(game.score(), is("30-0"));
 		
-		
-		espania.score();
-		
-		assertThat(game.winner(), is(espania));
+		game.firstPlayerScore();
+		assertThat(game.score(), is("40-0"));
 	}
 	
+	// PlayerB Tsonga win the game
 	@Test
-	public void gameDeuce() throws Exception {
-		italia.score();
-		italia.score();
-		italia.score();
+	public void playerBScoreShouldFollow_15_30_40_sequence() throws Exception {
+		game.secondPlayerScore();
+		assertThat(game.score(), is("0-15"));
 		
-		espania.score();
-		espania.score();
-		espania.score();
+		game.secondPlayerScore();
+		assertThat(game.score(), is("0-30"));
 		
-		
-		assertThat(game.deuce(), is(true));
+		game.secondPlayerScore();
+		assertThat(game.score(), is("0-40"));
 	}
-	
-	@Test
-	public void italiaPlayerScoreAdvantageFromDeuce() throws Exception {
-		game = new TennisGame(italia, espania);
-		italia.scoreToFourty();
-		espania.scoreToFourty();
-		game.scoreFirstPlayer();
-		
-		assertThat(game.whoIsAdvantage(), is(italia));
-		assertThat(espania.isFourty(), is(true));
-		
-	}
-	
-	@Test
-	public void backToDeuce() throws Exception {
-		game = new TennisGame(italia, espania);
-		italia.scoreToFourty();
-		espania.scoreToFourty();
-		game.scoreFirstPlayer();
-		game.scoreSecondPlayer();
-		assertThat(game.deuce(), is(true));
-		
-	}
-}
