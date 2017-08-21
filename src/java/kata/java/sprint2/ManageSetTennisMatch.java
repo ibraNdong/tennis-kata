@@ -1,5 +1,5 @@
 
-package kata.java.tennis;
+package kata.java.sprint2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
