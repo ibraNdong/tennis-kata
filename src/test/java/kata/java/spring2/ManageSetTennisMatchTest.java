@@ -1,4 +1,4 @@
-package kata.java.spring2;
+package kata.java.sprint2;
 
 import org.junit.After;
 import org.junit.Before;
