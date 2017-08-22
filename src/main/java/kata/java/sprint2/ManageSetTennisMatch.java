@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 /**
  * Tennis Score Manager
- * @author Ibrahima Ndong
- *
+ * @author Ibrahima Ndong.
  */
 public class ManageSetTennisMatch {
 
